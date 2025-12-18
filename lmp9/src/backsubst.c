@@ -26,7 +26,9 @@ int  backsubst(Matrix *x, Matrix *mat, Matrix *b) {
 				suma = suma + mat->data[i][j-1] * x->data[j-1][0];
 			}
 		}
-
+		if(mat->data[i][i] == 0){                                              /* Sprawdzenie czy dzielimy przez zero */
+			return 1;
+		}
 		x->data[i][0] = (x->data[i][0] - suma) / mat->data[i][i];              /* Zapis wyniku do wektora x */
 	}
 	return 0;
