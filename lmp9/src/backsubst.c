@@ -5,18 +5,21 @@
  * Zwraca 2 - błąd nieprawidłowych rozmiarów macierzy
  */
 int  backsubst(Matrix *x, Matrix *mat, Matrix *b) {
-				/**
-				 * Tutaj należy umieścić właściwą implemntację.
-				 */
+	
+	if((mat->r != mat->c) || (mat->r < 2) || (mat-> c < 2)){
+		return 2;
+	}
+	
+	
 
-				/* To ponizej jest przepisaniem b do x. Nalezy to poprawic! */
+	/* To ponizej jest przepisaniem b do x. Nalezy to poprawic! */
+	
+	int i;
+	for (i =0; i < x->r; i++) {
+		x->data[i][0] = b->data[i][0];
+	}
 
-				int i;
-				for (i =0; i < x->r; i++) {
-								x->data[i][0] = b->data[i][0];
-				}
-
-				return 0;
+	return 0;
 }
 
 
