@@ -19,6 +19,11 @@ int eliminate(Matrix *mat, Matrix *b){
 	/* Pętla po skosie */
 	for(k = 0; k < n - 1; k++){
 
+		/* Sprawdzanie dzielenia przez 0 */
+		if(mat->data[k][k] == 0){
+			return 1; //macierz osobliwa
+		}
+
 		/* Pętla schodkowania */
 		for(i = k + 1; i < n; i++){
 		
