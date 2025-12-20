@@ -1,5 +1,5 @@
 #include "gauss.h"
-
+#include <math.h>
 /**
  * Zwraca 0 - elimnacja zakonczona sukcesem
  * Zwraca 1 - macierz osobliwa - dzielenie przez 0
@@ -18,6 +18,29 @@ int eliminate(Matrix *mat, Matrix *b){
 	
 	/* Pętla po skosie */
 	for(k = 0; k < n - 1; k++){
+
+		int a = k;
+		double max = mat->data[k][k];
+		int nrMAX = k;
+
+		/* Wybieranie el. glownego */
+		for(a ; a < n ; a++){
+			if(fabs(mat->data[a][k]) > fabs(max)){
+				max = mat->data[a][k];
+				nrMAX = a;
+			}
+		}
+
+		/* Zamiana wierszy */
+		for(int h = 0; h < n; h++){
+			double tmp = mat->data[k][h];
+			mat->data[k][h] = mat->data[nrMAX][h];
+			mat->data[nrMAX][h] = tmp;
+		}
+		/* Zamiana wierszy w wektorze b*/
+		double tmp = b->data[k][0];
+		b->data[k][0] = b->data[nrMAX][0];
+		b->data[nrMAX][0] = tmp;
 
 		/* Sprawdzanie dzielenia przez 0 */
 		if(mat->data[k][k] == 0){
