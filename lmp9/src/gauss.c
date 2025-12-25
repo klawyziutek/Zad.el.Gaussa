@@ -52,6 +52,8 @@ int eliminate(Matrix *mat, Matrix *b){
 			b->data[max_r] = temp_b;
 		}
 
+		/* Koniec etapu wyboru elementu głównego, reszta algorytmu... */
+
 		/* Pętla schodkowania */
 		for(i = k + 1; i < n; i++){
 		
