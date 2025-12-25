@@ -20,10 +20,13 @@ int eliminate(Matrix *mat, Matrix *b){
 	/* Pętla po skosie */
 	for(k = 0; k < n - 1; k++){
 		
+		/* Wybór elementu głównego: */		
 		double max_value = fabs(mat->data[k][k]);
 		int max_r = k;
 
-		/* Wybór elementu głównego */
+
+		/* Szukanie największej wartości w kolumnie i zapisanie numeru
+		 * wiersza */
 		for(l = k + 1; l < n; l++){
 			if(fabs(mat->data[l][k]) > max_value){
 				max_value = fabs(mat->data[l][k]);
@@ -32,7 +35,7 @@ int eliminate(Matrix *mat, Matrix *b){
 		}
 
 		/* Sprawdzanie dzielenia przez 0 */
-		if(mat->data[k][k] == 0){
+		if(max_value == 0){
 			return 1; //macierz osobliwa
 		}
 
