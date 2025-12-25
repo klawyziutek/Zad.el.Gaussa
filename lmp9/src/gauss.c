@@ -38,6 +38,13 @@ int eliminate(Matrix *mat, Matrix *b){
 		if(max_value == 0){
 			return 1; //macierz osobliwa
 		}
+		
+		/* Zamiana wierszy w macierzy*/
+		if(max_r != k){
+			double *temp_r = mat->data[k];
+			mat->data[k] = mat->data[max_r];
+			mat->data[max_r] = temp_r;
+		}
 
 		/* Pętla schodkowania */
 		for(i = k + 1; i < n; i++){
