@@ -41,9 +41,15 @@ int eliminate(Matrix *mat, Matrix *b){
 		
 		/* Zamiana wierszy w macierzy*/
 		if(max_r != k){
+			/* Zamiana wierszy w głównej macierzy */
 			double *temp_r = mat->data[k];
 			mat->data[k] = mat->data[max_r];
 			mat->data[max_r] = temp_r;
+
+			/* Zamiana wierszy w wektorze b */
+			double *temp_b = b->data[k];
+			b->data[k] = b->data[max_r];
+			b->data[max_r] = temp_b;
 		}
 
 		/* Pętla schodkowania */
