@@ -1,11 +1,12 @@
 #include "gauss.h"
+#include <math.h>
 
 /**
  * Zwraca 0 - elimnacja zakonczona sukcesem
  * Zwraca 1 - macierz osobliwa - dzielenie przez 0
  */
 int eliminate(Matrix *mat, Matrix *b){
-	int i, j, k;
+	int i, j, k, l;
 
 	/* Sprawdzenie czy macierz A jest kwadratowa i czy wektor b i 
 	 * macierz A mają tyle samo wierszy */
@@ -18,6 +19,17 @@ int eliminate(Matrix *mat, Matrix *b){
 	
 	/* Pętla po skosie */
 	for(k = 0; k < n - 1; k++){
+		
+		double max_value = fabs(mat->data[k][k]);
+		int max_r = k;
+
+		/* Wybór elementu głównego */
+		for(l = k + 1; l < n; l++){
+			if(fabs(mat->data[l][k]) > max_value){
+				max_value = fabs(mat->data[l][k]);
+				max_r = l;
+			}
+		}
 
 		/* Sprawdzanie dzielenia przez 0 */
 		if(mat->data[k][k] == 0){
