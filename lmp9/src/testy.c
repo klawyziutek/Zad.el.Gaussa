@@ -4,38 +4,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+int main() {
+    printf("=== ROZPOCZYNAM AUTOMATYCZNE TESTY ===\n");
 
-int main(int argc, char ** argv) {
-	printf("Program sprawdza czy wynik otrzymany zgadza sie z wynikiem przewidywanym. dziala tylko dla plikow: DaneTestowe i b.\n\n");
-	int res;
-	Matrix * A = readFromFile(argv[1]);
-	Matrix * b = readFromFile(argv[2]);
-	Matrix * x;
+    // Test 1: Poprawne dane - sprawdzamy wynik z test1_x.txt
+    run_test("Test 1 (Poprawne dane 2x2)", 
+             "dane/test1_A.txt", "dane/test1_b.txt", "dane/test1_x.txt", 0);
 
-	if (A == NULL) return -1;
-	if (b == NULL) return -2;
-	printToScreen(A);
-	printToScreen(b);
+    // Test 2: Potrzeba skorzystania z wyboru elementu głównego - sprawdzamy wynik z test2_x.txt
+    run_test("Test 2 (Selekcja elementu głównego - zamiana wierszy)", 
+             "dane/test2_A.txt", "dane/test2_b.txt", "dane/test2_x.txt", 0);
 
-	res = eliminate(A,b);
-	x = createMatrix(b->r, 1);
-	if (x != NULL) {
-		res = backsubst(x,A,b);
-		
-		printToScreen(x);
-		if(fabs(x->data[0][0] - (-30)) > 0.0001 || fabs(x->data[1][0] - 20) > 0.0001){ 
-			printf("Zly wynik, poprawny to x1 = -30, x2 = 20.\n");
-		}
-		else{
-			printf("Dobry wynik, program dziala poprawnie\n");
-		}
-	  freeMatrix(x);
-	} else {
-					fprintf(stderr,"Błąd! Nie mogłem utworzyć wektora wynikowego x.\n");
-	}
+    // Test 3: Macierz osobliwa 
+    run_test("Test 3 (Macierz osobliwa)", 
+             "dane/test3_A.txt", "dane/test3_b.txt", NULL, 1);
 
-	freeMatrix(A);
-	freeMatrix(b);
+    // Test 4: Zły format 
+    run_test("Test 4 (Zły format danych)", 
+             "dane/test4_A.txt", "dane/test4_b.txt", NULL, -1);
 
-	return 0;
-}
+    printf("=== KONIEC TESTÓW ===\n");
+    return 0;
+}i
