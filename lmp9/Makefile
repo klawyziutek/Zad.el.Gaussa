@@ -1,14 +1,15 @@
-SOURCES = $(wildcard src/*.c)
-A = $(filter-out src/testy.c, $(SOURCES))
-B = $(filter-out src/main.c, $(SOURCES))
-all:
-	gcc -Wall --pedantic $(A) -o bin/gauss
+all: gauss testy
 
-test: all
-	bin/gauss dane/A dane/b
+gauss:
+	mkdir -p bin
+	cc src/main.c src/mat_io.c src/gauss.c src/backsubst.c -o bin/gauss -lm
 
-testy: 
-	cc -Wall --pedantic $(B) -o bin/testy
+testy:
+	mkdir -p bin
+	cc -Wall src/testy.c src/mat_io.c src/gauss.c src/backsubst.c -o bin/testy -lm
 
-Testy: testy
-	bin/testy dane/DaneTestowe dane/b
+test: testy
+	./bin/testy
+
+clean:
+	rm -f bin/gauss bin/testy
