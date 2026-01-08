@@ -10,5 +10,5 @@ test: all
 testy: 
 	cc -Wall --pedantic $(B) -o bin/testy
 
-Testy:
+Testy: testy
 	bin/testy dane/DaneTestowe dane/b
