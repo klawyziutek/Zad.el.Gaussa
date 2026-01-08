@@ -5,18 +5,33 @@
  * Zwraca 2 - błąd nieprawidłowych rozmiarów macierzy
  */
 int  backsubst(Matrix *x, Matrix *mat, Matrix *b) {
-				/**
-				 * Tutaj należy umieścić właściwą implemntację.
-				 */
+	
+	if((mat->r != mat->c) || (mat->r < 2) || (mat-> c < 2)){
+		return 2;
+	}
 
-				/* To ponizej jest przepisaniem b do x. Nalezy to poprawic! */
+	/* To ponizej jest przepisaniem b do x. */
+	
+	int i;
+	for (i =0; i < x->r; i++) {
+		x->data[i][0] = b->data[i][0];
+	}
 
-				int i;
-				for (i =0; i < x->r; i++) {
-								x->data[i][0] = b->data[i][0];
-				}
+	// Petla iterujaca od konca macierzy
+	for (i = i - 1 ; i >= 0; i--){
+		double suma = 0;
 
-				return 0;
+		if ( i != x->r - 1){ 
+			for(int j = mat->c; j > i+1 ; j--){                            /* Obliczanie sumy wartosci zmiennych po prawej stronie od przekatnej */
+				suma = suma + mat->data[i][j-1] * x->data[j-1][0];
+			}
+		}
+		if(mat->data[i][i] == 0){                                              /* Sprawdzenie czy dzielimy przez zero */
+			return 1;
+		}
+		x->data[i][0] = (x->data[i][0] - suma) / mat->data[i][i];              /* Zapis wyniku do wektora x */
+	}
+	return 0;
 }
 
 
