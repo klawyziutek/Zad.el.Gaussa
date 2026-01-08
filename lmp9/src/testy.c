@@ -5,6 +5,30 @@
 #include <stdio.h>
 #include <math.h>
 
+/* Funkcja pomocnicza do porównywania macierzy z tolerancją błędu (epsilon) */
+int compare_matrices(Matrix *a, Matrix *b) {
+    int i, j;
+    double epsilon = 0.000001; // Dopuszczalny błąd zaokrągleń
+
+    if (a->r != b->r || a->c != b->c) {
+        printf("BŁĄD: Niezgodne wymiary wyników! Otrzymano %dx%d, oczekiwano %dx%d\n",
+               a->r, a->c, b->r, b->c);
+        return 0; // Różne
+    }
+
+    for (i = 0; i < a->r; i++) {
+        for (j = 0; j < a->c; j++) {
+            double diff = fabs(a->data[i][j] - b->data[i][j]);
+            if (diff > epsilon) {
+                printf("BŁĄD: Zła wartość w wierszu %d! Otrzymano %f, oczekiwano %f\n",
+                       i, a->data[i][j], b->data[i][j]);
+                return 0; // Różne
+            }
+        }
+    }
+    return 1; // Macierze są identyczne (w granicach błędu)
+}
+
 /* Faktyczna funkcja testująca */
 
 void run_test(char *test_name, char *file_A, char *file_b, char *file_expected_x, int expected_exit_code) {
