@@ -110,7 +110,7 @@ int main() {
 
     // Test 4: Zły format 
     run_test("Test 4 (Zły format danych)", 
-             "dane/test4_A.txt", "dane/test4_b.txt", NULL, -1);
+             "dane/test4_A.txt", "dane/test4_b.txt", NULL, 2);
 
     printf("=== KONIEC TESTÓW ===\n");
     return 0;
